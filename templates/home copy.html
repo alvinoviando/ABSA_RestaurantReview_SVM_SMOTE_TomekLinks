@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html id="home">
+<head>
+	<title>Clickbait Detection</title>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Aclonica|Lato|Raleway:900|Montserrat:500|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
+
+<body>
+<!-- navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-teal" id="navbar">
+	<div class="offset-sm-1">
+   <a class="navbar-brand page-scroll" href="#home">
+   	 <h5 style="color: #9F5B43; font-weight: bold">TUGAS AKHIR </h5>
+	<!-- <img alt="TUGAS AKHIR" src="images/usu.png" width="60" height="60"> -->
+	</a>
+</div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <ul class="navbar-nav my-2 my-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link page-scroll" href="#home" >Home &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="sr-only">(current)</span></a>
+      </li>
+    	 <li class="nav-item active">
+        <a class="nav-link page-scroll" href="#training">Training Data  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sr-only">(current)</span></a>
+      </li>
+       <li class="nav-item active">
+        <a class="nav-link page-scroll" href="#testing">Testing Data  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link page-scroll" href="#predict">User Input  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+ 
+  </div>
+</nav>
+	
+<!-- end navbar -->
+
+<!-- jumbotron -->
+	<div class="jumbotron">
+		<div class="container">
+			<br>
+		<div class="row">
+			<div class="col-md-7">
+				<h1> Identifikasi Judul Clickbait Pada Berita Bahasa Indonesia Menggunakan Gated Recurrent Unit</h1>
+				<h5>FANI THERESA HUTABARAT - 171402061</h5>
+				<a class="page-scroll" href="#predict"><button type="button" class="button-start">P r e d i c t &nbsp; D a t a</button></a>
+				<h5 style="color: #98999b">Program Studi S1 Teknologi Informasi<br>
+					Fakultas Ilmu Komputer dan Teknologi Informasi<br>
+					Universitas Sumatera Utara<br>
+					2021</h5>
+			</div>
+			<div class="col-md-4 offset-md-1" style="margin-top: 50px">
+				<img src="../static/images/clickbait.svg">
+			</div>
+	    </div>
+	    </div>
+	</div>
+<!-- end jumbotron -->
+<!-- training -->
+<section class="training" id="training">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<center>
+						<h3>Training Data</h3>
+						<h6>Masukkan data training agar model dapat belajar mengidentifikasi judul <i>clickbait</i> dan <i>non-clickbait</i></h6>
+						<form method="POST" enctype ="multipart/form-data" id="train-form">
+							<input type="file" name="file_train" id="file_train">
+							<button type="submit" id="train_submit" class="btn btn-primary">Train Data</button>
+						</form>
+						<div class="load-icon-train" style="display: none;">
+ 							<img src="../static/images/ajax-loader.gif" alt="Loading..."> 
+ 						</div>
+ 						<!-- <p id="nilai_akurasi_train"></p> -->
+					</center>
+					<div class="card" id="preproccessing" style="display: none;">
+						<div class="card-body">
+							<div class="row" id="table_preproccess">
+									<div style="font-size: 20px;"><center><b>Tahap Pre-Proccessing</b></center></div>
+									<div>
+										Pada bagian ini ditampilkan tahapan pre-processing beserta contoh penerapannya pada salah satu kalimat dari data training.
+									</div>
+									<br><br>
+									<table class="table">
+										<tr>
+											<td class="left"><b>Input</b></td>
+											<td class="right" id="text_input"></td>
+										</tr>
+										<tr>
+											<td class="left"><b>Case Folding</b></td>
+											<td class="right" id="text_case_folding"></td>
+										</tr>
+										<tr>
+											<td class="left"><b>Stopword Removal</b></td>
+											<td class="right" id="text_stopword"></td>
+										</tr>
+										<tr>
+											<td class="left"><b>Punctuation Removal</b></td>
+											<td class="right" id="text_punct"></td>
+										</tr>
+										<tr>
+											<td class="left"><b>Tokenisasi</b></td>
+											<td class="right" id="text_tokenisasi"></td>
+										</tr>
+									</table>
+							</div>
+						</div>
+					</div>
+					<div class="card" id="hasil_training" style="display: none;">
+						<div class="card-body">
+							<div class="row" id="table_training">
+									<div style="font-size: 20px;"><center><b>Hasil Training</b></center></div><br><br>
+									<table class="table">
+										<tr>
+											<td><b>Model</b></td>
+											<td>GRU</td><td></td>
+											<td><b>Embedding Layer</b></td>
+											<td>300</td><td></td>
+											<td><b>Epoch</b></td>
+											<td>30</td><td></td>
+											<td><b>Jumlah Unit</b></td>
+											<td>32</td>
+										</tr>
+										<tr>
+											<td><b>Akurasi Train</b></td>
+											<td id=nilai_akurasi_train></td><td></td>
+											<td><b>Loss Train</b></td>
+											<td id=nilai_loss_train></td><td></td>
+											<td><b>Akurasi Validasi</b></td>
+											<td id=nilai_akurasi_val></td><td></td>
+											<td><b>Loss Validasi</b></td>
+											<td id=nilai_loss_val></td>
+										</tr>
+									</table>
+							</div>
+							<div class="row">
+								<div class="col-sm-6 col-md-6" id="loss_plot"></div>
+								<div class="col-sm-6 col-md-6" id="acc_plot"></div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="card" id="hasil_training" style="display: none">
+						<div class="card-body">
+							<div class="row" >
+								<div class="col-sm-4">
+									<div><b>Detail Hasil Training</b></div><br>
+									<table class="table">
+
+										<tr>
+											<td>Model</td>
+											<td>GRU</td>
+										</tr>
+										<tr>
+											<td>Embedding Layer</td>
+											<td>300</td>
+										</tr>
+										<tr>
+											<td>Epoch</td>
+											<td>25</td>
+										</tr>
+										<tr>
+											<td>Akurasi</td>
+											<td id=nilai_akurasi_train></td>
+										</tr>
+										<tr>
+											<td>Loss</td>
+											<td id=nilai_loss_train></td>
+										</tr>
+									</table>
+								</div>						
+								<div class="col-sm-8">
+									<div><b>Grafik Loss dan Akurasi</b></div><br>
+									<div class="col-sm-4" id="loss_plot"></div>
+									<div class="col-sm-4" id="acc_plot"></div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- end training -->
+
+<!-- testing -->
+<section class="testing" id="testing">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<center> 
+						<h3>Testing Data</h3>
+						<h6>Masukkan data testing agar model dapat mengidentifikasi judul <i>clickbait</i> dan <i>non-clickbait</i></h6>
+						<form method="POST" enctype ="multipart/form-data" id="test-form">
+							<input type="file" name="file_test" id="file_test">
+							<button type="submit" id="test_submit" class="btn btn-primary">Test Data</button>
+							
+ 						</form>
+ 						<div class="load-icon-test" style="display: none;">
+ 							<img src="../static/images/ajax-loader.gif" alt="Loading..."> 
+ 						</div>
+						<div id="nilai_akurasi_test"></div>
+					</center>
+					<div>
+						<div class="col-sm-3" id="keterangan" style="display: none;">
+							<b>Keterangan </b>
+							<table class="table table-sm">
+										<tr>
+											<td><b>Clickbait</b></td>
+											<td>1</td><td></td>
+											<td><b>Non-clickbait</b></td>
+											<td>0</td>
+										</tr>
+										<tr>
+											
+										</tr>
+							</table>
+						</div>
+						<div>
+							<table id='empTable' class='display dataTable' width='100%'></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- end testing -->
+
+<!-- predict-->
+<section class="predict" id="predict">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<center> 
+						<h3 class="predict_title">User Input (Single Data)</h3>
+						<h6>Masukkan judul berita berbahasa Indonesia untuk diidentifikasi</h6>
+						<form method="POST" id="pred-form">
+							<div class="form-group">
+								<input type="text" class="form-control" name="data_pred" id="data_pred">
+							</div>
+							<div>
+								<button type="submit" id="pred_submit" class="btn btn-primary">Predict Data</button>
+							</div>
+ 						</form>
+ 						<div class="load-icon-pred" style="display: none;">
+ 							<img src="../static/images/ajax-loader.gif" alt="Loading..."> 
+ 						</div>
+						<div id="hasil_pred"></div>
+					</center>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- end predict -->
+
+</body>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="../static/js/jquery.easing.1.3.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="../static/js/script.js"></script> 
+<script type="text/javascript">
+	$('.carousel').carousel({
+  interval: 1500
+})
+</script>
+</html>

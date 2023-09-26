@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html id="home">
+<head>
+	<title>Kulineri</title>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Aclonica|Lato|Raleway:900|Montserrat:500|Roboto+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+<link rel="stylesheet" type="text/css" href="../static/css/stylesheet.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+
+<body>
+<!-- navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-teal" id="navbar">
+	<div class="offset-sm-1">
+   <a class="navbar-brand page-scroll" href="#home">
+   	 <h5  style="color: #029671; font-weight: bold"><img alt="TUGAS AKHIR" src="../static/images/ricebowl.svg" width="45" style="margin-right: 100;" class="filter-green">&nbsp;&nbsp;&nbsp;&nbsp;Kulineri</h5>
+	<!-- <img alt="TUGAS AKHIR" src="images/usu.png" width="60" height="60"> -->
+	</a>
+</div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <ul class="navbar-nav my-2 my-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link page-scroll" href="#home" >Home &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="sr-only">(current)</span></a>
+      </li>
+    	 <li class="nav-item active">
+        <a class="nav-link page-scroll" href="{{ url_for('training') }}">Training Data  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sr-only">(current)</span></a>
+      </li>
+       <!-- <li class="nav-item active">
+        <a class="nav-link page-scroll" href="#testing">Testing Data  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="sr-only">(current)</span></a>
+      </li> -->
+      <li class="nav-item active">
+        <a class="nav-link page-scroll" href="#testing">User Input  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+ 
+  </div>
+</nav>
+	
+<!-- end navbar -->
+
+<!-- jumbotron -->
+	<div class="jumbotron">
+		<div class="container">
+			<br>
+		<div class="row">
+			<div class="col-md-7">
+				<h2 style="color: #029671; font-weight: bold;"> Kulineri</h2>
+				<h1>Temukan ulasan Restoran favoritmu!</h1>
+				<h5 style="text-align: justify;">Kulineri merupakan project penelitian tugas akhir tentang Implementasi Aspect Based Sentiment Analysis menggunakan algoritma Support Vector Machine berdasarkan review produk dan layanan restoran. Aplikasi ini diharapkan dapat membantu pengguna dalam menentukan Restoran yang ingin dituju berdasarkan ulasan yang tersedia pada Google Maps.</h5>
+				<a class="page-scroll" href="#testing"><button type="button" class="button-start">Cari Rumah Makan</button></a>
+				<!-- <h5 style="color: #98999b">Program Studi S1 Teknologi Informasi<br>
+					Fakultas Ilmu Komputer dan Teknologi Informasi<br>
+					Universitas Sumatera Utara<br>
+					2023</h5> -->
+			</div>
+			<div class="col-md-4 offset-md-1" style="margin-top: 50px">
+				<img src="../static/images/undraw_eating_together_re_ux62.svg">
+			</div>
+	    </div>
+	    </div>
+	</div>
+
+<!-- end jumbotron -->
+
+<!-- training -->
+
+<!-- end training -->
+
+<!-- testing -->
+<section class="testing" id="testing">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<center> 
+						<h3>Cari Nama Rumah Makan</h3>
+						<h6>Masukkan nama rumah makan yang ingin dicari</h6>
+							
+							<h4>Panduan :</h4>
+					</center>
+							<h6><ul>
+								<li>Nama rumah makan atau restoran yang dimasukkan harus sesuai dengan yang terdapat pada platform Google Maps.</li>
+								<li>Anda dapat juga menambahkan nama lokasi rumah makan atau restoran yang diinginkan jika rumah makan atau restoran memiliki cabang. Contoh: "McDonalds- Medan Tasbi" jika ingin mencari restoran McDonalds cabang Tasbi. </li>
+							</ul></h6>
+					<center>
+						<form method="POST" enctype ="multipart/form-data" id="test-form">
+							<input type="text" name="nama_resto" id="nama_resto" size="50" height="10">
+							<button type="submit" id="test_submit" class="btn btn-primary" width="20">Cari</button>
+							<!-- <button onclick = clearPlot()  class="btn btn-danger" size="50" height="10">Reset</button> -->
+ 						</form>
+ 						<div class="load-icon-test" style="display: none;">
+ 							<img src="../static/images/ajax-loader2.gif" alt="Loading..." height="80" width= auto> 
+							<h6 style="color: black">Mohon Tunggu. Proses Scraping dan Prediksi sedang berjalan</h6>
+ 						</div>
+						<div id="nilai_akurasi_test"></div>
+					</center>
+					<div class="card" id="hasil_input" style="display: none;">
+						<div class="card-body">
+							<!-- <div class="row" id="table_input"> -->
+								
+							
+							<!-- </div> -->
+							<div  id="hasil_pred">
+								<div id="table_training">
+									<div class="row">
+										<div class="col-lg-12" width="100%">
+											<p style="color: black;">Ulasan sebanyak <b style="color:#029671" id= "jumlah_review"></b> ulasan, yang sudah diambil pada rumah makan <b style="color:#029671" id=nama_resto_bold></b> beserta aspeknya sebagai berikut :</p>
+										</div>
+									</div>
+										<div class="row">
+											<div class="col-lg-12" width="100%">
+												<table class="table" id="table_ulasan_input" style="width: 90%; font-size: medium;"></table>
+											</div>
+										</div>
+								</div>
+								<br>
+							</div>
+							<div class="row">
+								<div class="col-sm-6 col-md-6" id="plot_input_makanan"></div>
+								<div class="col-sm-6 col-md-6" id="plot_input_minuman"></div>
+								<div class="col-sm-6 col-md-6" id="plot_input_pelayanan"></div>
+								<div class="col-sm-6 col-md-6" id="plot_input_tempat"></div>
+								<div class="col-sm-6 col-md-6" id="plot_input_harga"></div>
+							</div>
+						</div>
+					</div>
+							<table id='empTable' class='display dataTable' width='100%'></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- end testing -->
+
+</body>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="../static/js/jquery.easing.1.3.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="../static/js/script.js"></script> 
+<script type="text/javascript">
+	$('.carousel').carousel({
+  interval: 1500
+})
+
+</script>
+</html>
